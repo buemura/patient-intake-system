@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 
 import { FORM_MODEL } from '@/shared/database/mongoose/mongoose.provider';
-import { Form } from '../../entities/form.entity';
+import { CreateForm, Form } from '../../entities/form.entity';
 import { InsuranceType, PatientLocation } from '../../entities/patient.entity';
 import { FormRepository } from '../form.repository';
 
@@ -36,5 +36,10 @@ export class MongooseFormRepository implements FormRepository {
     if (!form) return null;
 
     return this.toEntity(form);
+  }
+
+  async createForm(form: CreateForm): Promise<Form> {
+    const createdForm = await this.formModel.create(form);
+    return this.toEntity(createdForm);
   }
 }

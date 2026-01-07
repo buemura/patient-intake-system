@@ -5,6 +5,7 @@ export enum PatientLocation {
 export enum InsuranceType {
   UNIMED = 'unimed',
   BRADESCO = 'bradesco',
+  AMIL = 'amil',
 }
 
 export class CreatePatient {

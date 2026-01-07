@@ -6,6 +6,12 @@ class FormField {
   required: boolean;
 }
 
+export class CreateForm {
+  insuranceType: InsuranceType;
+  location: PatientLocation;
+  fields: FormField[];
+}
+
 export class Form {
   id: string;
   insuranceType: InsuranceType;
