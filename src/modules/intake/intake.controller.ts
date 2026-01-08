@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-
 import { ApiResponse } from '@nestjs/swagger';
+
 import {
   IntakeBasicFormRequestDto,
   IntakeBasicFormResponseDto,

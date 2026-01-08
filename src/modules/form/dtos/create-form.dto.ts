@@ -8,10 +8,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-import {
-  InsuranceType,
-  PatientLocation,
-} from '@/modules/intake/entities/patient.entity';
+import { InsuranceType, PatientLocation } from '@/modules/patient/patient.enum';
 
 class FieldFormat {
   @ApiProperty()
@@ -33,13 +30,13 @@ class FieldFormat {
 export class CreateFormDto {
   @ApiProperty()
   @IsNotEmpty()
-  @IsEnum(InsuranceType)
-  insuranceType: InsuranceType;
+  @IsEnum(PatientLocation)
+  location: PatientLocation;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsEnum(PatientLocation)
-  location: PatientLocation;
+  @IsEnum(InsuranceType)
+  insuranceType: InsuranceType;
 
   @ApiProperty()
   @IsNotEmpty()

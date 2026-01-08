@@ -1,12 +1,4 @@
-export enum PatientLocation {
-  URBAN = 'urban',
-}
-
-export enum InsuranceType {
-  UNIMED = 'unimed',
-  BRADESCO = 'bradesco',
-  AMIL = 'amil',
-}
+import { InsuranceType, PatientLocation } from './patient.enum';
 
 export class CreatePatient {
   name: string;

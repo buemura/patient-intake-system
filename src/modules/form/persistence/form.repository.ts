@@ -1,5 +1,5 @@
-import { CreateForm, Form } from '../entities/form.entity';
-import { InsuranceType, PatientLocation } from '../entities/patient.entity';
+import { InsuranceType, PatientLocation } from '@/modules/patient/patient.enum';
+import { CreateForm, Form } from '../form.entity';
 
 export const FORM_REPOSITORY = Symbol('FORM_REPOSITORY');
 

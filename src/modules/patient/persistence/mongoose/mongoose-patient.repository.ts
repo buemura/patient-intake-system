@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 
 import { PATIENT_MODEL } from '@/shared/database/mongoose/mongoose.provider';
-import { CreatePatient, Patient } from '../../entities/patient.entity';
+import { CreatePatient, Patient } from '../../patient.entity';
 import { PatientRepository } from '../patient.repository';
 
 @Injectable()

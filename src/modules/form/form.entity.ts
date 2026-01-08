@@ -1,4 +1,4 @@
-import { InsuranceType, PatientLocation } from './patient.entity';
+import { InsuranceType, PatientLocation } from '@/modules/patient/patient.enum';
 
 export class FormField {
   name: string;

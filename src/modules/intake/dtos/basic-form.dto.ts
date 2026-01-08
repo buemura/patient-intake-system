@@ -1,10 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsInt, IsNotEmpty, IsString, Max, Min } from 'class-validator';
 
-import {
-  InsuranceType,
-  PatientLocation,
-} from '@/modules/intake/entities/patient.entity';
+import { InsuranceType, PatientLocation } from '@/modules/patient/patient.enum';
 
 export class IntakeBasicFormRequestDto {
   @ApiProperty()

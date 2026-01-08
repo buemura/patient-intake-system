@@ -5,6 +5,10 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 
+import { Form, FormField } from '@/modules/form/form.entity';
+import { FormService } from '@/modules/form/form.service';
+import { InsuranceType, PatientLocation } from '@/modules/patient/patient.enum';
+import { PatientService } from '@/modules/patient/patient.service';
 import { EVENT, EVENTS_EXCHANGE } from '@/shared/queue/queue';
 import { IQueueService, QUEUE_SERVICE } from '@/shared/queue/queue.service';
 import {
@@ -12,52 +16,40 @@ import {
   IntakeBasicFormResponseDto,
 } from './dtos/basic-form.dto';
 import { FollowUpForm } from './dtos/followup-form.dto';
-import { Form, FormField } from './entities/form.entity';
-import { Intake, IntakeStatusEnum } from './entities/intake.entity';
-import { InsuranceType, PatientLocation } from './entities/patient.entity';
-import {
-  FORM_REPOSITORY,
-  type FormRepository,
-} from './persistence/form.repository';
+import { Intake } from './entities/intake.entity';
+import { IntakeStatusEnum } from './intake.enum';
 import {
   INTAKE_REPOSITORY,
   type IntakeRepository,
 } from './persistence/intake.repository';
-import {
-  PATIENT_REPOSITORY,
-  type PatientRepository,
-} from './persistence/patient.repository';
 
 @Injectable()
 export class IntakeService {
   constructor(
-    @Inject(PATIENT_REPOSITORY)
-    private readonly patientRepository: PatientRepository,
-
-    @Inject(FORM_REPOSITORY)
-    private readonly formRepository: FormRepository,
-
     @Inject(INTAKE_REPOSITORY)
     private readonly intakeRepository: IntakeRepository,
 
     @Inject(QUEUE_SERVICE)
     private readonly queueService: IQueueService,
+    private readonly patientService: PatientService,
+    private readonly formService: FormService,
   ) {}
 
   private async getNextForm(
     location: PatientLocation,
     insuranceType: InsuranceType,
   ): Promise<Form | null> {
-    return this.formRepository.findByLocationAndInsurance(
-      insuranceType,
+    const form = await this.formService.getFormByLocationAndInsurance(
       location,
+      insuranceType,
     );
+    return form;
   }
 
   async submitBasicForm(
     body: IntakeBasicFormRequestDto,
   ): Promise<IntakeBasicFormResponseDto> {
-    const createdPatient = await this.patientRepository.createPatient({
+    const createdPatient = await this.patientService.createPatient({
       name: body.name,
       age: body.age,
       location: body.location,
@@ -201,7 +193,7 @@ export class IntakeService {
       throw new NotFoundException(`Intake with id ${intakeId} not found`);
     }
 
-    const form = await this.formRepository.findById(intake.formId);
+    const form = await this.formService.getFormById(intake.formId);
     if (!form) {
       throw new NotFoundException(`Form with id ${intake.formId} not found`);
     }

@@ -21,6 +21,7 @@ export class MongooseIntakeRepository implements IntakeRepository {
       status: doc.status,
       formAnswers: doc.formAnswers,
       validationErrors: doc.validationErrors,
+      downstreamStatus: doc.downstreamStatus,
       createdAt: doc.createdAt,
       updatedAt: doc.updatedAt,
     };

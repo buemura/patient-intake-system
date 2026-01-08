@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 
+import { InsuranceType, PatientLocation } from '@/modules/patient/patient.enum';
 import { FORM_MODEL } from '@/shared/database/mongoose/mongoose.provider';
-import { CreateForm, Form } from '../../entities/form.entity';
-import { InsuranceType, PatientLocation } from '../../entities/patient.entity';
+import { CreateForm, Form } from '../../form.entity';
 import { FormRepository } from '../form.repository';
 
 @Injectable()

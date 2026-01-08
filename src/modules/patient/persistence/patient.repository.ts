@@ -1,4 +1,4 @@
-import { CreatePatient, Patient } from '../entities/patient.entity';
+import { CreatePatient, Patient } from '../patient.entity';
 
 export const PATIENT_REPOSITORY = Symbol('PATIENT_REPOSITORY');
 
