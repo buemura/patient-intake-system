@@ -1,5 +1,13 @@
 import * as mongoose from 'mongoose';
 
+const ValidationErrorSchema = new mongoose.Schema(
+  {
+    fieldKey: { type: String, required: true },
+    message: { type: String, required: true },
+  },
+  { _id: false },
+);
+
 export const IntakeSchema = new mongoose.Schema(
   {
     patientId: {
@@ -19,7 +27,7 @@ export const IntakeSchema = new mongoose.Schema(
     },
     formAnswers: { type: mongoose.Schema.Types.Mixed, required: false },
     validationErrors: {
-      type: [{ fieldKey: String, message: String }],
+      type: [ValidationErrorSchema],
       required: false,
     },
     createdAt: { type: Date, default: Date.now },

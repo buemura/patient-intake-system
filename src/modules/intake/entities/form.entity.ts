@@ -1,6 +1,6 @@
 import { InsuranceType, PatientLocation } from './patient.entity';
 
-class FormField {
+export class FormField {
   name: string;
   dataType: string;
   required: boolean;

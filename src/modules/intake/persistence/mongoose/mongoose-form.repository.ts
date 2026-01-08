@@ -24,7 +24,13 @@ export class MongooseFormRepository implements FormRepository {
     };
   }
 
-  async findOne(
+  async findById(id: string): Promise<Form | null> {
+    const form = await this.formModel.findById(id).lean().exec();
+    if (!form) return null;
+    return this.toEntity(form);
+  }
+
+  async findByLocationAndInsurance(
     insuranceType: InsuranceType,
     location: PatientLocation,
   ): Promise<Form | null> {

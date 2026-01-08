@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 import { ApiResponse } from '@nestjs/swagger';
 import {
@@ -6,9 +6,10 @@ import {
   IntakeBasicFormResponseDto,
 } from './dtos/basic-form.dto';
 import { FollowUpForm } from './dtos/followup-form.dto';
+import { Intake } from './entities/intake.entity';
 import { IntakeService } from './intake.service';
 
-@Controller('patient-intake')
+@Controller('intake')
 export class IntakeController {
   constructor(private readonly intakeService: IntakeService) {}
 
@@ -26,5 +27,11 @@ export class IntakeController {
     @Body() body: FollowUpForm,
   ): Promise<any> {
     return this.intakeService.submitFollowUpForm(intakeId, body);
+  }
+
+  @Get(':intakeId')
+  @ApiResponse({ type: Intake })
+  async getIntake(@Param('intakeId') intakeId: string): Promise<Intake> {
+    return this.intakeService.getIntake(intakeId);
   }
 }

@@ -9,4 +9,5 @@ export interface IntakeRepository {
     id: string,
     formAnswers: Record<string, any>,
   ): Promise<Intake | null>;
+  updateIntake(id: string, intake: Partial<Intake>): Promise<Intake | null>;
 }

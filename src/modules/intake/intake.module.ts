@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 
 import { DatabaseModule } from '@/shared/database/database.module';
+import { QueueModule } from '@/shared/queue/queue.module';
+import { IntakeConsumer } from './intake.consumer';
 import { IntakeController } from './intake.controller';
 import { IntakeService } from './intake.service';
 import { FORM_REPOSITORY } from './persistence/form.repository';
@@ -11,8 +13,8 @@ import { MongoosePatientRepository } from './persistence/mongoose/mongoose-patie
 import { PATIENT_REPOSITORY } from './persistence/patient.repository';
 
 @Module({
-  imports: [DatabaseModule],
-  controllers: [IntakeController],
+  imports: [DatabaseModule, QueueModule],
+  controllers: [IntakeController, IntakeConsumer],
   providers: [
     IntakeService,
     {

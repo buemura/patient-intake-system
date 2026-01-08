@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
+import * as mongoose from 'mongoose';
 import { Model } from 'mongoose';
 
 import { INTAKE_MODEL } from '@/shared/database/mongoose/mongoose.provider';
@@ -26,6 +27,8 @@ export class MongooseIntakeRepository implements IntakeRepository {
   }
 
   async findById(id: string): Promise<Intake | null> {
+    if (!mongoose.Types.ObjectId.isValid(id)) return null;
+
     const intake = await this.intakeModel.findById(id).exec();
     if (!intake) return null;
 
@@ -44,6 +47,8 @@ export class MongooseIntakeRepository implements IntakeRepository {
     id: string,
     formAnswers: Record<string, any>,
   ): Promise<Intake | null> {
+    if (!mongoose.Types.ObjectId.isValid(id)) return null;
+
     const updatedIntake = await this.intakeModel
       .findByIdAndUpdate(
         id,
@@ -57,6 +62,21 @@ export class MongooseIntakeRepository implements IntakeRepository {
         { new: true },
       )
       .exec();
+    if (!updatedIntake) return null;
+
+    return this.toEntity(updatedIntake);
+  }
+
+  async updateIntake(
+    id: string,
+    intake: Partial<Intake>,
+  ): Promise<Intake | null> {
+    if (!mongoose.Types.ObjectId.isValid(id)) return null;
+
+    const updatedIntake = await this.intakeModel
+      .findByIdAndUpdate(id, { $set: intake }, { new: true })
+      .exec();
+
     if (!updatedIntake) return null;
 
     return this.toEntity(updatedIntake);
