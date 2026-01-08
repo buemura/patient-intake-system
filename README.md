@@ -29,9 +29,8 @@ Requirements
    implement those services. You can just add logs to prove those systems were notified
    - Eligibility service
    - Scheduling service
-
-- Billing service
-- EHR sync service
+   - Billing service
+   - EHR sync service
 
 Each service consumes events independently.
 

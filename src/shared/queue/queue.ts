@@ -4,6 +4,14 @@ export const EVENTS_EXCHANGE = 'app.events';
 
 export const EVENT = {
   INTAKE_SUBMITTED: 'intake.submitted',
+  INTAKE_COMPLETED: 'intake.completed',
+};
+
+export const QUEUES = {
+  ELIGIBILITY_CHECK: 'eligibility.check',
+  SCHEDULE_CREATE_APPOIINTMENT: 'schedule.create.appointment',
+  BILLING_CREATE: 'billing.create',
+  EHR_SYNC: 'ehr.sync',
 };
 
 export const queues = [
@@ -11,6 +19,26 @@ export const queues = [
     url: process.env.RABBITMQ_URL!,
     queueName: EVENT.INTAKE_SUBMITTED,
     routingKeys: [EVENT.INTAKE_SUBMITTED],
+  },
+  {
+    url: process.env.RABBITMQ_URL!,
+    queueName: QUEUES.ELIGIBILITY_CHECK,
+    routingKeys: [EVENT.INTAKE_COMPLETED],
+  },
+  {
+    url: process.env.RABBITMQ_URL!,
+    queueName: QUEUES.SCHEDULE_CREATE_APPOIINTMENT,
+    routingKeys: [EVENT.INTAKE_COMPLETED],
+  },
+  {
+    url: process.env.RABBITMQ_URL!,
+    queueName: QUEUES.BILLING_CREATE,
+    routingKeys: [EVENT.INTAKE_COMPLETED],
+  },
+  {
+    url: process.env.RABBITMQ_URL!,
+    queueName: QUEUES.EHR_SYNC,
+    routingKeys: [EVENT.INTAKE_COMPLETED],
   },
 ];
 

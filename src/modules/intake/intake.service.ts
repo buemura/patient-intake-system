@@ -187,6 +187,14 @@ export class IntakeService {
     };
   }
 
+  private notifyIntakeCompletion(intake: Intake): void {
+    this.queueService.publishMessage(
+      EVENTS_EXCHANGE,
+      EVENT.INTAKE_COMPLETED,
+      intake,
+    );
+  }
+
   async processIntakeAnswer(intakeId: string): Promise<void> {
     const intake = await this.intakeRepository.findById(intakeId);
     if (!intake) {
@@ -225,6 +233,11 @@ export class IntakeService {
 
     intake.status = IntakeStatus.COMPLETED;
 
-    await this.intakeRepository.updateIntake(intakeId, intake);
+    const updatedIntake = await this.intakeRepository.updateIntake(
+      intakeId,
+      intake,
+    );
+
+    this.notifyIntakeCompletion(updatedIntake!);
   }
 }
