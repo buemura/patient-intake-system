@@ -126,10 +126,10 @@ The application is organized into the following modules:
 - **Intake Module** - Main intake submission and management
 - **Form Module** - Dynamic form configuration and retrieval
 - **Patient Module** - Patient configuration and retrieval
-- **Billing Module** - Billing service consumer (RabbitMQ)
-- **Ehr Module** - EHR sync service consumer (RabbitMQ)
-- **Eligibility Module** - Eligibility service consumer (RabbitMQ)
-- **Scheduling Module** - Scheduling service consumer (RabbitMQ)
+- **Billing Module** - Billing service consumer - RabbitMQ (Simulates a microservice)
+- **Ehr Module** - EHR sync service consumer - RabbitMQ (Simulates a microservice)
+- **Eligibility Module** - Eligibility service consumer - RabbitMQ (Simulates a microservice)
+- **Scheduling Module** - Scheduling service consumer - RabbitMQ (Simulates a microservice)
 
 ### Event-Driven Architecture
 
