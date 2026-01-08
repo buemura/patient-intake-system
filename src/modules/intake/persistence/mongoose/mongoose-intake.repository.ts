@@ -36,10 +36,7 @@ export class MongooseIntakeRepository implements IntakeRepository {
   }
 
   async create(intake: CreateIntake): Promise<Intake> {
-    const createdIntake = await this.intakeModel.create({
-      ...intake,
-      status: 'IN_PROGRESS',
-    });
+    const createdIntake = await this.intakeModel.create(intake);
     return this.toEntity(createdIntake);
   }
 

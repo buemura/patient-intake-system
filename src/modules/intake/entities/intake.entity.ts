@@ -1,6 +1,12 @@
-export enum IntakeStatus {
+export enum IntakeStatusEnum {
   IN_PROGRESS = 'IN_PROGRESS',
   SUBMITTED = 'SUBMITTED',
+  COMPLETED = 'COMPLETED',
+  FAILED = 'FAILED',
+}
+
+export enum DownstreamStatusEnum {
+  PENDING = 'PENDING',
   COMPLETED = 'COMPLETED',
   FAILED = 'FAILED',
 }
@@ -10,13 +16,26 @@ export class CreateIntake {
   formId: string;
 }
 
+class ValidationError {
+  fieldKey: string;
+  message: string;
+}
+
+class DownstreamStatus {
+  eligibility: DownstreamStatusEnum;
+  scheduling: DownstreamStatusEnum;
+  billing: DownstreamStatusEnum;
+  ehr: DownstreamStatusEnum;
+}
+
 export class Intake {
   id: string;
   patientId: string;
   formId: string;
-  status: IntakeStatus;
+  status: IntakeStatusEnum;
   formAnswers?: Record<string, any>;
-  validationErrors?: Array<{ fieldKey: string; message: string }>;
+  validationErrors?: Array<ValidationError>;
+  downstreamStatus?: DownstreamStatus;
   createdAt: Date;
   updatedAt: Date;
 }

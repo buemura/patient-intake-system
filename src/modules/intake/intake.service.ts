@@ -13,7 +13,7 @@ import {
 } from './dtos/basic-form.dto';
 import { FollowUpForm } from './dtos/followup-form.dto';
 import { Form, FormField } from './entities/form.entity';
-import { Intake, IntakeStatus } from './entities/intake.entity';
+import { Intake, IntakeStatusEnum } from './entities/intake.entity';
 import { InsuranceType, PatientLocation } from './entities/patient.entity';
 import {
   FORM_REPOSITORY,
@@ -94,7 +94,7 @@ export class IntakeService {
       throw new NotFoundException(`Intake with id ${intakeId} not found`);
     }
 
-    if (intake.status !== IntakeStatus.IN_PROGRESS) {
+    if (intake.status !== IntakeStatusEnum.IN_PROGRESS) {
       throw new UnprocessableEntityException(
         `Intake with id ${intakeId} is not in progress`,
       );
@@ -233,15 +233,15 @@ export class IntakeService {
 
     intake.status =
       intake.validationErrors.length > 0
-        ? IntakeStatus.FAILED
-        : IntakeStatus.COMPLETED;
+        ? IntakeStatusEnum.FAILED
+        : IntakeStatusEnum.COMPLETED;
 
     const updatedIntake = await this.intakeRepository.updateIntake(
       intakeId,
       intake,
     );
 
-    if (updatedIntake?.status === IntakeStatus.COMPLETED) {
+    if (updatedIntake?.status === IntakeStatusEnum.COMPLETED) {
       this.notifyIntakeCompletion(updatedIntake);
     }
   }
