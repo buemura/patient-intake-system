@@ -20,5 +20,6 @@ import { MongooseIntakeRepository } from './persistence/mongoose/mongoose-intake
       useClass: MongooseIntakeRepository,
     },
   ],
+  exports: [IntakeService],
 })
 export class IntakeModule {}

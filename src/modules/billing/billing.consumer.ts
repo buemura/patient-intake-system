@@ -10,10 +10,12 @@ import {
 import { QUEUES } from '@/shared/queue/queue';
 import { QueueConsumer } from '@/shared/queue/queue.consumer';
 import { Intake } from '../intake/entities/intake.entity';
+import { DownstreamStatusEnum } from '../intake/intake.enum';
+import { IntakeService } from '../intake/intake.service';
 
 @Controller()
 export class BillingConsumer extends QueueConsumer {
-  constructor() {
+  constructor(private readonly intakeService: IntakeService) {
     super();
   }
 
@@ -23,7 +25,15 @@ export class BillingConsumer extends QueueConsumer {
     @Ctx() ctx: RmqContext,
   ): Promise<void> {
     console.log(`Received message in queue ${QUEUES.BILLING_CREATE}:`, data);
+
+    // Randomly set billing status to simulate errors and completions
+    const status =
+      Math.random() < 0.5
+        ? DownstreamStatusEnum.COMPLETED
+        : DownstreamStatusEnum.FAILED;
+
+    await this.intakeService.updateDownstreanStatus(data.id, status, 'billing');
+
     this.ackMessage(ctx);
-    await Promise.resolve();
   }
 }

@@ -11,10 +11,10 @@ class ValidationError {
 }
 
 class DownstreamStatus {
-  eligibility: DownstreamStatusEnum;
-  scheduling: DownstreamStatusEnum;
-  billing: DownstreamStatusEnum;
-  ehr: DownstreamStatusEnum;
+  eligibility?: DownstreamStatusEnum;
+  scheduling?: DownstreamStatusEnum;
+  billing?: DownstreamStatusEnum;
+  ehr?: DownstreamStatusEnum;
 }
 
 export class Intake {

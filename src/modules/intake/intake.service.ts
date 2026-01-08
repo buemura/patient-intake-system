@@ -17,7 +17,7 @@ import {
 } from './dtos/basic-form.dto';
 import { FollowUpForm } from './dtos/followup-form.dto';
 import { Intake } from './entities/intake.entity';
-import { IntakeStatusEnum } from './intake.enum';
+import { DownstreamStatusEnum, IntakeStatusEnum } from './intake.enum';
 import {
   INTAKE_REPOSITORY,
   type IntakeRepository,
@@ -236,5 +236,17 @@ export class IntakeService {
     if (updatedIntake?.status === IntakeStatusEnum.COMPLETED) {
       this.notifyIntakeCompletion(updatedIntake);
     }
+  }
+
+  async updateDownstreanStatus(
+    intakeId: string,
+    status: DownstreamStatusEnum,
+    downstram: 'eligibility' | 'scheduling' | 'billing' | 'ehr',
+  ): Promise<void> {
+    await this.intakeRepository.updateIntake(intakeId, {
+      downstreamStatus: {
+        [downstram]: status,
+      },
+    });
   }
 }
