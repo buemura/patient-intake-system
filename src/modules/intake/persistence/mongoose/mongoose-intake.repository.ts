@@ -71,8 +71,6 @@ export class MongooseIntakeRepository implements IntakeRepository {
   ): Promise<Intake | null> {
     if (!mongoose.Types.ObjectId.isValid(id)) return null;
 
-    console.log('@@ intake: ', intake);
-
     const updatedIntake = await this.intakeModel
       .findByIdAndUpdate(id, { $set: intake }, { new: true })
       .exec();
