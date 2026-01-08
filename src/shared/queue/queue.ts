@@ -9,7 +9,7 @@ export const EVENT = {
 
 export const QUEUES = {
   ELIGIBILITY_CHECK: 'eligibility.check',
-  SCHEDULE_CREATE_APPOIINTMENT: 'schedule.create.appointment',
+  SCHEDULING_CREATE_APPOINTMENT: 'schedule.create.appointment',
   BILLING_CREATE: 'billing.create',
   EHR_SYNC: 'ehr.sync',
 };
@@ -27,7 +27,7 @@ export const queues = [
   },
   {
     url: process.env.RABBITMQ_URL!,
-    queueName: QUEUES.SCHEDULE_CREATE_APPOIINTMENT,
+    queueName: QUEUES.SCHEDULING_CREATE_APPOINTMENT,
     routingKeys: [EVENT.INTAKE_COMPLETED],
   },
   {

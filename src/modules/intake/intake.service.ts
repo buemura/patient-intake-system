@@ -231,13 +231,18 @@ export class IntakeService {
       });
     }
 
-    intake.status = IntakeStatus.COMPLETED;
+    intake.status =
+      intake.validationErrors.length > 0
+        ? IntakeStatus.FAILED
+        : IntakeStatus.COMPLETED;
 
     const updatedIntake = await this.intakeRepository.updateIntake(
       intakeId,
       intake,
     );
 
-    this.notifyIntakeCompletion(updatedIntake!);
+    if (updatedIntake?.status === IntakeStatus.COMPLETED) {
+      this.notifyIntakeCompletion(updatedIntake);
+    }
   }
 }
