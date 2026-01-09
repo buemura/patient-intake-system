@@ -24,7 +24,7 @@ export class Intake {
   status: IntakeStatusEnum;
   formAnswers?: Record<string, any>;
   validationErrors?: Array<ValidationError>;
-  downstreamStatus?: DownstreamStatus;
+  downstreamStatus: DownstreamStatus;
   createdAt: Date;
   updatedAt: Date;
 }

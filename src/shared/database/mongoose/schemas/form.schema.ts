@@ -3,7 +3,11 @@ import * as mongoose from 'mongoose';
 const FieldSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    dataType: { type: String, required: true },
+    dataType: {
+      type: String,
+      enum: ['number', 'string', 'boolean', 'date'],
+      required: true,
+    },
     required: { type: Boolean, required: true },
   },
   { _id: false }, // optional: prevents automatic _id on subdocs

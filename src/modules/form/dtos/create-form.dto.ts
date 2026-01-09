@@ -9,6 +9,7 @@ import {
 } from 'class-validator';
 
 import { InsuranceType, PatientLocation } from '@/modules/patient/patient.enum';
+import { FormFieldDataTypeEnum } from '../form.entity';
 
 class FieldFormat {
   @ApiProperty()
@@ -18,8 +19,8 @@ class FieldFormat {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsString()
-  dataType: string;
+  @IsEnum(FormFieldDataTypeEnum)
+  dataType: FormFieldDataTypeEnum;
 
   @ApiProperty()
   @IsNotEmpty()

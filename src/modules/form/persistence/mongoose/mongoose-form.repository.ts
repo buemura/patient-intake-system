@@ -24,6 +24,11 @@ export class MongooseFormRepository implements FormRepository {
     };
   }
 
+  async findAll(): Promise<Form[]> {
+    const forms = await this.formModel.find().lean().exec();
+    return forms.map((form) => this.toEntity(form));
+  }
+
   async findById(id: string): Promise<Form | null> {
     const form = await this.formModel.findById(id).lean().exec();
     if (!form) return null;

@@ -30,7 +30,7 @@ export class MongooseIntakeRepository implements IntakeRepository {
   async findById(id: string): Promise<Intake | null> {
     if (!mongoose.Types.ObjectId.isValid(id)) return null;
 
-    const intake = await this.intakeModel.findById(id).exec();
+    const intake = await this.intakeModel.findById(id).lean().exec();
     if (!intake) return null;
 
     return this.toEntity(intake);
@@ -59,6 +59,7 @@ export class MongooseIntakeRepository implements IntakeRepository {
         },
         { new: true },
       )
+      .lean()
       .exec();
     if (!updatedIntake) return null;
 
@@ -72,7 +73,38 @@ export class MongooseIntakeRepository implements IntakeRepository {
     if (!mongoose.Types.ObjectId.isValid(id)) return null;
 
     const updatedIntake = await this.intakeModel
-      .findByIdAndUpdate(id, { $set: intake }, { new: true })
+      .findByIdAndUpdate(
+        id,
+        { $set: intake, updatedAt: new Date() },
+        { new: true },
+      )
+      .lean()
+      .exec();
+
+    if (!updatedIntake) return null;
+
+    return this.toEntity(updatedIntake);
+  }
+
+  async updateDownstreamStatus(
+    id: string,
+    downstream: 'eligibility' | 'scheduling' | 'billing' | 'ehr',
+    status: string,
+  ): Promise<Intake | null> {
+    if (!mongoose.Types.ObjectId.isValid(id)) return null;
+
+    const updatedIntake = await this.intakeModel
+      .findByIdAndUpdate(
+        id,
+        {
+          $set: {
+            [`downstreamStatus.${downstream}`]: status,
+            updatedAt: new Date(),
+          },
+        },
+        { new: true },
+      )
+      .lean()
       .exec();
 
     if (!updatedIntake) return null;

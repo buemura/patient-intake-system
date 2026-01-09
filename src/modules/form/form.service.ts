@@ -28,6 +28,10 @@ export class FormService {
     return form;
   }
 
+  async getAllForms(): Promise<Form[]> {
+    return this.formRepository.findAll();
+  }
+
   async addNewForm(body: CreateFormDto): Promise<Form> {
     const newForm = await this.formRepository.createForm({
       insuranceType: body.insuranceType,

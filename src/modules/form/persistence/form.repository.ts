@@ -4,6 +4,8 @@ import { CreateForm, Form } from '../form.entity';
 export const FORM_REPOSITORY = Symbol('FORM_REPOSITORY');
 
 export interface FormRepository {
+  findAll(): Promise<Form[]>;
+
   findById(id: string): Promise<Form | null>;
 
   findByLocationAndInsurance(

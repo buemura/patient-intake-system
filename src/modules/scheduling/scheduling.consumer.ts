@@ -30,7 +30,7 @@ export class SchedulingConsumer extends QueueConsumer {
     );
 
     const status =
-      Math.random() < 0.5
+      Math.random() < 0.75
         ? DownstreamStatusEnum.COMPLETED
         : DownstreamStatusEnum.FAILED;
 

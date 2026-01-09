@@ -26,9 +26,8 @@ export class BillingConsumer extends QueueConsumer {
   ): Promise<void> {
     console.log(`Received message in queue ${QUEUES.BILLING_CREATE}:`, data);
 
-    // Randomly set billing status to simulate errors and completions
     const status =
-      Math.random() < 0.5
+      Math.random() < 0.75
         ? DownstreamStatusEnum.COMPLETED
         : DownstreamStatusEnum.FAILED;
 

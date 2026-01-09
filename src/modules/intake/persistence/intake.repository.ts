@@ -10,4 +10,9 @@ export interface IntakeRepository {
     formAnswers: Record<string, any>,
   ): Promise<Intake | null>;
   updateIntake(id: string, intake: Partial<Intake>): Promise<Intake | null>;
+  updateDownstreamStatus(
+    id: string,
+    downstream: 'eligibility' | 'scheduling' | 'billing' | 'ehr',
+    status: string,
+  ): Promise<Intake | null>;
 }

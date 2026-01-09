@@ -1,8 +1,15 @@
 import { InsuranceType, PatientLocation } from '@/modules/patient/patient.enum';
 
+export enum FormFieldDataTypeEnum {
+  NUMBER = 'number',
+  STRING = 'string',
+  BOOLEAN = 'boolean',
+  DATE = 'date',
+}
+
 export class FormField {
   name: string;
-  dataType: string;
+  dataType: FormFieldDataTypeEnum;
   required: boolean;
 }
 

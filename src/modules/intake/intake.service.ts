@@ -243,14 +243,16 @@ export class IntakeService {
     status: DownstreamStatusEnum,
     downstream: 'eligibility' | 'scheduling' | 'billing' | 'ehr',
   ): Promise<void> {
-    const intake = await this.intakeRepository.findById(intakeId);
+    const intake = await this.intakeRepository.updateDownstreamStatus(
+      intakeId,
+      downstream,
+      status,
+    );
+
     if (!intake) {
       throw new NotFoundException(`Intake with id ${intakeId} not found`);
     }
 
-    intake.downstreamStatus = intake.downstreamStatus ?? {};
-    intake.downstreamStatus[downstream] = status;
-
-    await this.intakeRepository.updateIntake(intakeId, intake);
+    return;
   }
 }
